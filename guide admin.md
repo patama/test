@@ -1,6 +1,9 @@
 # Guide Administrateur
 
+
+## Différentes possibilités
 Il existe différentes solutions pour mettre Qwant :
+
 1. Placer Qwant sur la home page intranet
   * en utilisant l'API 
   * en ajoutant une iframe 
@@ -10,13 +13,13 @@ Il existe différentes solutions pour mettre Qwant :
 
 Ces 3 solutions dépendent des contraintes et de la stratégie.
 
-Avantages/Inconvénients : 
- 
--          A appliquer dans différents couples OS/Navigateurs :
+## Ajout du moteur dans le navigateur
 
-## Solutions sous Windows
+Ces solutions dépendent fortement du système d'explotation et du navigateur. Voici des pistes de mise en oeuvre pour quelques couples :
 
-### Active Directory et GPO
+### SOlutions pour Windows 
+
+#### Active Directory et GPO
 Avec un Active Directory, on peut déployer via une GPO pour intégrer Qwant dans Internet Explorer :
 Par exemple avec le script suivant dans un fichier.reg :
 
@@ -37,19 +40,19 @@ Windows Registry Editor Version 5.00
 
 Pour plus d'informations, la [documentation microsoft](https://technet.microsoft.com/fr-fr/library/Cc753092.aspx) explique comment modifier le registre windows via la GPO.
 
-### Sous Windows, pour tout navigateur
+#### Sous Windows, pour tout navigateur
 
 Créer un package MSI qui sera déployé pour les différents navigateurs avec Qwant par défaut.   
 
 §  Dépot d'un fichier xml
 
-## Solutions pour Mac
+### Solutions pour Mac
 
-### Sous Mac, pour Safari ou autre
+#### Sous Mac, pour Safari ou autre
 
-## Solutions pour Linux
+### Solutions pour Linux
 
-### Sous Linux, pour Firefox ou autre
+#### Sous Linux, pour Firefox ou autre
 
 Sous Linux, il faut utiliser un déploiement via un script bash en local avec des conditions en fonction du navigateur.
 
