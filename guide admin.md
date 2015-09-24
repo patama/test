@@ -58,7 +58,7 @@ Sous Linux, il faut utiliser un déploiement via un script bash en local avec de
 
 Exemple pour Firefox (qui fonctionnerait aussi avec Windows). A priori ça doit être valable pour l’ensemble des OS, dans les versions récentes de Firefox (> 24 à vérifier) :
 Il faut poser un fichier xml (code ci dessous) dans `~/.mozilla/firefox/<profile>/searchplugins/` ou `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\searchplugins`
-Et le configurer dans ~/.mozilla/firefox/<profile>/search-metadata.json` ou `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\ search-metadata.json`
+Et le configurer dans `~/.mozilla/firefox/<profile>/search-metadata.json` ou `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\ search-metadata.json`
 
 ```
 <SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
