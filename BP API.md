@@ -13,12 +13,12 @@ Sur la base de ce document et des réactions qu’il aura suscitées sera élabo
 
 Ce document s’appuie sur les sources suivantes :
 
-- Un article[^f1] du blog de Mulesoft, éditeur de solutions, résumant les bonnes pratiques API  [[1][1]] ;
-- Une page[^f2] du dépôt de code des standards API de la Maison Blanche [[2][2]] ;
-- Une page[^f3] du site gouvernemental anglais Global Delivery Service [[3][3]];
-- Une page[^f4] du blog d’Octo, cabinet de conseil IT, synthétisant les bonnes pratiques de conception et de design d’API REST [[4][4]] ;
-- Une page[^f5] du blog de Vinay Sahni [[5][5]];
-- Le référentiel général d’interopérabilité[^f6], publié par la DISIC [[6][6]].
+- Un article[^f1] du blog de Mulesoft, éditeur de solutions, résumant les bonnes pratiques API  [1] ;
+- Une page[^f2] du dépôt de code des standards API de la Maison Blanche [2] ;
+- Une page[^f3] du site gouvernemental anglais Global Delivery Service [3];
+- Une page[^f4] du blog d’Octo, cabinet de conseil IT, synthétisant les bonnes pratiques de conception et de design d’API REST [4] ;
+- Une page[^f5] du blog de Vinay Sahni [5];
+- Le référentiel général d’interopérabilité[^f6], publié par la DISIC [6].
 
 [^f1]: http://blogs.mulesoft.org/api-best-practices-wrap-up/
 
@@ -261,6 +261,7 @@ Bon exemple :
   {"id": "834", "name": "Water Quality"}
 ],
 ```
+
 Mauvais exemple :
 ```
 "tags": [
@@ -270,7 +271,7 @@ Mauvais exemple :
 ```
 
 ### Spécifier et Documenter les APIs
-Utiliser une approche « *Spec Driven Development* » pour créer rapidement l’API à partir de sa **spécification**, pour documenter l’API et pour faciliter sa maintenance évolutive.
+Utiliser une approche " *Spec Driven Development* " pour créer rapidement l’API à partir de sa **spécification**, pour documenter l’API et pour faciliter sa maintenance évolutive.
 Plusieurs outils émergent actuellement sur ce sujet, on peut citer par ordre d’apparition : [Swagger](http://swagger.io/), [API Bluprint](https://apiary.io/blueprint) et [RAML](http://raml.org). Chacun est soutenu par un consortium d’acteurs différents et présente des avantages et des inconvénients : voir [ici](http://www.mikestowe.com/2014/12/api-spec-comparison-tool.php) pour une comparaison des 3 outils.
 La spécification à partir de ces outils permet également de proposer très facilement aux utilisateurs des « mocks » de service et affiner avec eux les interfaces et les fonctions.
 Réf : [1], [2], [4], [5]
