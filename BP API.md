@@ -146,8 +146,8 @@ Exemples ([2]) :
 
 
 Utiliser les **query string** comme des paramètres :
-Pour gérer la notion de réponse partielle : par exemple pour modifier le niveau de détail de la réponse rendue : ```?detail=full``` ou ```?detail=none```  (Réf : [3], [4])
-Ou encore pour proposer de la pagination, du tri, du filtrage et de la limitation du nombre d’enregistrements retournés (Réf : [2], [4], [5])
+Pour gérer la notion de réponse partielle : par exemple pour modifier le niveau de détail de la réponse rendue : ```?detail=full``` ou ```?detail=none```  (Réf. : [3], [4])
+Ou encore pour proposer de la pagination, du tri, du filtrage et de la limitation du nombre d’enregistrements retournés (Réf. : [2], [4], [5])
 Par exemple, pour proposer un système de pagination simple avec 2 paramètres dans la query string : limit et offset. Si les paramètres ne sont pas indiqués par le client, limiter par défaut le nombre d’objets dans la collection. Dans la réponse, indiquez en plus du résultat, le nombre total d’enregistrements et rappelez les paramètres d’entrée :
 
 
@@ -186,14 +186,18 @@ https://api.fakecompany.com/v1/restaurants?type=chinese&sort=rating,name&desc=ra
 
 **Versions** :
 Les APIs doivent naturellement être versionnées, ne jamais exposer une API sans version :
-La version de l’API doit apparaitre dans l’URL, n’indiquer que la version majeure.
+
+- Utiliser la convention de nommage [semantic version](http://semver.org/)
+- La version de l’API doit apparaitre dans l’URL, en n’indiquant que la version majeure.
+
 Les bonnes pratiques de gestion de version dépassent le cadre de ce document, on peut cependant indiquer :
-Maintenir en production la version précédente, 
-Essayer de ne pas maintenir plus de 2 versions simultanément,
-Avertir les consommateurs de la publication d’une nouvelle version,
-Communiquer sur les évolutions et les conséquences à prendre en compte dans leurs développements,
-Indiquer les dates de fin de support des versions précédentes. 
-Réf : [2], [4], [5]
+
+- Maintenir en production la version précédente, 
+- Essayer de ne pas maintenir plus de 2 versions simultanément,
+- Avertir les consommateurs de la publication d’une nouvelle version,
+- Communiquer sur les évolutions et les conséquences à prendre en compte dans leurs développements,
+- Indiquer les dates de fin de support des versions précédentes. 
+Réf. : [2], [4], [5]
 
 L’**année** ne doit pas apparaitre dans le chemin de l’URL car c’est un filtre de recherche. Il doit aller dans la partie Query String, dans les champs de type paramètres de la recherche au même titre que l’ordre de tri.
 Exemple ([2]) :
@@ -206,12 +210,12 @@ Les formats les plus répandus sont :
 
 - XML
 - JSON, format adapté aux traitements
-- JSONP et/ou JSON avec CORS, si l’API doit donner accès à des ressources situées dans un autre domaine, les navigateurs récents supportent le standard CORS. Si l’on souhaite être compatible avec les anciens navigateurs (IE 7à9), il faut utiliser JSONP et passer par les tags <\script /> (Réf : [2], [4], [5])
+- JSONP et/ou JSON avec CORS, si l’API doit donner accès à des ressources situées dans un autre domaine, les navigateurs récents supportent le standard CORS. Si l’on souhaite être compatible avec les anciens navigateurs (IE 7à9), il faut utiliser JSONP et passer par les tags <\script /> (Réf. : [2], [4], [5])
 - CSV, pour importer dans un tableur ou une BDD
 - ATOM, pour les flux d’évènements
 Il existe également des formats spécifiques à un type de ressources, par exemple iCalendar, vCard, KML, geoRSS ou encore m3u.
 
-Exemple d’exposition d’une ressource sous forme de 2 représentations (Réf : [2],[3],[6]) :
+Exemple d’exposition d’une ressource sous forme de 2 représentations (Réf. : [2],[3],[6]) :
 
 ```
 http://example.gov/api/v1/magazines.json
@@ -222,12 +226,12 @@ La [tendance actuelle](http://www.google.com/trends/explore?q=xml+api#q=xml%20ap
 
 <img><script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=xml+api+,+json+api&cmpt=q&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script></img>
 
-**Négociation du format des représentations** (Réf : [1], [2], [3], [4], [5]) :
+**Négociation du format des représentations** (Réf. : [1], [2], [3], [4], [5]) :
 La balise « content type header » permet de caractériser le format de la ressource présentée.
 La balise « accept » dans le header http permet d’engager avec le consommateur une phase de de négociation avant de lui présenter la ressource au format demandé.
 
 
-Utiliser les « **http Status Codes** » lors du dialogue entre client et serveur pour les codes erreur http (Réf : [1], [2], [4], [5]) :
+Utiliser les « **http Status Codes** » lors du dialogue entre client et serveur pour les codes erreur http (Réf. : [1], [2], [4], [5]) :
 On peut dans un premier temps se limiter à 3 ces codes :
 
 - 200 – OK : Achèvement sans erreur
@@ -241,7 +245,7 @@ Puis utiliser des codes supplémentaires dans chaque famille :
 
 __ajouter 300 ?__
 
-Fournir également des **libellés de description d’erreur** (Réf : [1], [2],[4]) :
+Fournir également des **libellés de description d’erreur** (Réf. : [1], [2],[4]) :
 S’inspirer des google errors, vnd.error et json api’s error format :
 En cas d’erreur, fournir en plus du http Status Code, un message à destination du développeur, un message pour le end-user (si approprié), le code erreur interne (documenté par ailleurs) et  des liens vers la documentation.
 
@@ -281,19 +285,19 @@ Mauvais exemple :
 Utiliser une approche " *Spec Driven Development* " pour créer rapidement l’API à partir de sa **spécification**, pour documenter l’API et pour faciliter sa maintenance évolutive.
 Plusieurs outils émergent actuellement sur ce sujet, on peut citer par ordre d’apparition : [Swagger](http://swagger.io/), [API Bluprint](https://apiary.io/blueprint) et [RAML](http://raml.org). Chacun est soutenu par un consortium d’acteurs différents et présente des avantages et des inconvénients : voir [ici](http://www.mikestowe.com/2014/12/api-spec-comparison-tool.php) pour une comparaison des 3 outils.
 La spécification à partir de ces outils permet également de proposer très facilement aux utilisateurs des « mocks » de service et affiner avec eux les interfaces et les fonctions.
-Réf : [1], [2], [4], [5]
+Réf. : [1], [2], [4], [5]
 
 Proposer une **documentation** de l’API avec des exemples :
 Possibilité d’expérimenter directement depuis la documentation.
 Illustration de l’utilisation de l’API en incluant des appels cURL.
-Réf : [1], [3], [4], [5]
+Réf. : [1], [3], [4], [5]
 
 Penser à proposer dans les réponses des liens **hypermedia** pour guider les développeurs et leur faire découvrir les ressources et actions possibles de l’API. C’est le concept HATEOAS : Hypermedia
  As The Engine Of Application State.
-Réf : [1], [3], [4], [5]
+Réf. : [1], [3], [4], [5]
 
 Dans la documentation de l’API, spécifier également les **niveaux d’engagements** de l’API en termes de sécurité, disponibilité, limite de consommation, temps de réponse, source des données fournies, …
-Ces engagements peuvent également apparaitre dans les headers des réponses données au client (http code 429 – Too many Requests) ou en utilisant, par exemple, les notations de twitter (Réf : [5]) :
+Ces engagements peuvent également apparaitre dans les headers des réponses données au client (http code 429 – Too many Requests) ou en utilisant, par exemple, les notations de twitter (Réf. : [5]) :
 
 - X-Rate-Limit-Limit
 - X-Rate-Limit-Remaining
@@ -304,7 +308,7 @@ Ces engagements peuvent également apparaitre dans les headers des réponses don
 
 #### SDK - bibliothèques
 
-La fourniture de SDK ou de bibliothèques pour différents langages clients de l’API est une bonne pratique. Cependant s’ils simplifient l’usage de l’api, il faut les maintenir dans le temps et en assurer le support aux utilisateurs (Réf : [1], [3], [4], [5]). 
+La fourniture de SDK ou de bibliothèques pour différents langages clients de l’API est une bonne pratique. Cependant s’ils simplifient l’usage de l’api, il faut les maintenir dans le temps et en assurer le support aux utilisateurs (Réf. : [1], [3], [4], [5]). 
 
 #### API Management
 
