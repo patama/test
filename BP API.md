@@ -346,11 +346,11 @@ Le présent document a voulu synthétiser les bonnes pratiques de conception des
 Toutes les Apis Asynchrone : de type websockets, MQTT, AMQP, Stomp, webhook ou pubsub
 Les APIs qui font des orchestrations coté serveur pour améliorer l’expérience utilisateur
 Les interfaces basées sur des protocoles binaires : Apache Thrift par exemple
-Le développement de SDK qui peuvent permettre au client de reveni vers du RPC : fournir des librairies pour que le client consomme l’api dans son langage souvent orienté procédures
+Le développement de SDK qui peuvent permettre au client de revenir vers du RPC : fournir des librairies pour que le client consomme l’api dans son langage souvent orienté procédures
 Enfin, il faut citer l’autre grande technologie permettant d’exposer des web services : le SOAP (Simple Object Access Protocol), protocole pouvant s’appuyer sur http ou une autre couche de transport.
 
 Secrétariat général pour la modernisation de l’action publique
-Direction interministérielle des systèmes d’information et de communication
+Direction interministérielle du numérique et des systèmes d’information et de communication
 
 Avril 2015 - Septembre 2015
 
