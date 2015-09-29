@@ -13,12 +13,12 @@ Sur la base de ce document et des réactions qu’il aura suscitées sera élabo
 
 Ce document s’appuie sur les sources suivantes :
 
-- Un article[^f1] du blog de Mulesoft, éditeur de solutions, résumant les bonnes pratiques API  [1] ;
-- Une page[^f2] du dépôt de code des standards API de la Maison Blanche [2] ;
-- Une page[^f3] du site gouvernemental anglais Global Delivery Service [3];
-- Une page[^f4] du blog d’Octo, cabinet de conseil IT, synthétisant les bonnes pratiques de conception et de design d’API REST [4] ;
-- Une page[^f5] du blog de Vinay Sahni [5];
-- Le référentiel général d’interopérabilité[^f6], publié par la DISIC [6].
+- Un article[^f1] du blog de Mulesoft, éditeur de solutions, résumant les bonnes pratiques API (référencé par [1] dans la suite) ;
+- Une page[^f2] du dépôt de code des standards API de la Maison Blanche (réf. [2]) ;
+- Une page[^f3] du site gouvernemental anglais Global Delivery Service (réf. [3]);
+- Une page[^f4] du blog d’Octo, cabinet de conseil IT, synthétisant les bonnes pratiques de conception et de design d’API REST (réf. [4]) ;
+- Une page[^f5] du blog de Vinay Sahni (réf. [5]);
+- Le référentiel général d’interopérabilité[^f6], publié par la DISIC (réf. [6]).
 
 [^f1]: http://blogs.mulesoft.org/api-best-practices-wrap-up/
 
@@ -72,7 +72,7 @@ Se poser les questions suivantes pour chaque ressource en adoptant le point de v
 * Quelle action sur cette ressource est nécessaire, optionnelle, porteuse de valeur ou dangereuse
 * …
 
-Bon et mauvais exemples de conception d’API ([4]) : 
+Bon et mauvais exemples de conception d’API ([4]) : 
 
 [![](http://blog.octo.com/wp-content/uploads/2014/10/blender_01.png)](http://blog.octo.com/wp-content/uploads/2014/10/blender_01.png)
 Rechercher la simplicité et s’affranchir des données sous-jacentes
@@ -229,12 +229,15 @@ La balise « accept » dans le header http permet d’engager avec le consommate
 
 Utiliser les « **http Status Codes** » lors du dialogue entre client et serveur pour les codes erreur http (Réf : [1], [2], [4], [5]) :
 On peut dans un premier temps se limiter à 3 ces codes :
-200 – OK : Achèvement sans erreur
-400 - Bad Request : Erreur coté client
-500 - Internal Server Error : Erreur coté serveur
+
+- 200 – OK : Achèvement sans erreur
+- 400 - Bad Request : Erreur coté client
+- 500 - Internal Server Error : Erreur coté serveur
+
 Puis utiliser des codes supplémentaires dans chaque famille :
-201, 202, 204, 206
-401, 403, 404, 405, 406, 410, 415, 422, 429
+
+- 201, 202, 204, 206
+- 401, 403, 404, 405, 406, 410, 415, 422, 429
 
 __ajouter 300 ?__
 
@@ -243,6 +246,7 @@ S’inspirer des google errors, vnd.error et json api’s error format :
 En cas d’erreur, fournir en plus du http Status Code, un message à destination du développeur, un message pour le end-user (si approprié), le code erreur interne (documenté par ailleurs) et  des liens vers la documentation.
 
 Exemple ([2]) :
+
 ```{
   "status" : 400,
   "developerMessage" : "Verbose, plain language description of the problem. Provide developers suggestions about how to solve their problems here",
@@ -255,6 +259,7 @@ Exemple ([2]) :
 
 **Ne jamais mettre de valeurs dans les clés** ([2]) :
 Bon exemple :
+
 ```
 "tags": [
   {"id": "125", "name": "Environment"},
@@ -263,6 +268,7 @@ Bon exemple :
 ```
 
 Mauvais exemple :
+
 ```
 "tags": [
   {"125": "Environment"},
@@ -286,29 +292,35 @@ Penser à proposer dans les réponses des liens **hypermedia** pour guider les d
 Réf : [1], [3], [4], [5]
 
 Dans la documentation de l’API, spécifier également les **niveaux d’engagements** de l’API en termes de sécurité, disponibilité, limite de consommation, temps de réponse, source des données fournies, …
-Ces engagements peuvent également apparaitre dans les headers des réponses données au client (http code 429 – Too many Requests) ou en utilisant, par exemple, les notations de twitter :
-X-Rate-Limit-Limit
-X-Rate-Limit-Remaining
-X-Rate-Limit-Reset
-Réf : [5]
+Ces engagements peuvent également apparaitre dans les headers des réponses données au client (http code 429 – Too many Requests) ou en utilisant, par exemple, les notations de twitter (Réf : [5]) :
+
+- X-Rate-Limit-Limit
+- X-Rate-Limit-Remaining
+- X-Rate-Limit-Reset
+
 
 ### Hors catégories
+
 #### SDK - bibliothèques
+
 La fourniture de SDK ou de bibliothèques pour différents langages clients de l’API est une bonne pratique. Cependant s’ils simplifient l’usage de l’api, il faut les maintenir dans le temps et en assurer le support aux utilisateurs (Réf : [1], [3], [4], [5]). 
 
 #### API Management
+
 Utiliser une plateforme pour gérer l’exposition des apis : elle offre des fonctionnalités de protection, de scalabilité contre une attaque intentionnelle ou une simple mauvaise utilisation mais aussi des facilités d’autorisation, de provisionning et de throttling ([1]).
 
 #### Réutilisation d’Apis existantes
+
 Ne pas hésiter à réutiliser les APIs qui existent plutôt que de re-développer la fonction. ([3])
 Séparer l’appel à l’API tierce du reste du code, afin de permettre notamment le changement de fournisseur.
 Prévoir l’indisponibilité des APIs tierces : prévenir l’utilisateur, lui offrir une alternative dégradée.
 Attention lors des tests de l’API à bien prendre en compte les contraintes associées des APIs tierces en termes d’utilisabilité, de performance ou financières
 Exemples : 
-API d’envoi de mail : on ne veut pas envoyer de mail lors des tests,
-API de webanalytics, on ne veut pas dégrader les performances ou attendre un traitement
-API qui fait payer à l’usage, attention à la facture après un test de charge
-…
+
+- API d’envoi de mail : on ne veut pas envoyer de mail lors des tests,
+- API de webanalytics, on ne veut pas dégrader les performances ou attendre un traitement
+- API qui fait payer à l’usage, attention à la facture après un test de charge
+- …
 
 ## 5 règles pour résumer
 
