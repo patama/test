@@ -2,20 +2,20 @@
 
 
 ## Différentes possibilités
-Il existe différentes solutions pour mettre Qwant :
+Il existe différentes solutions pour intégrer Qwant aux navigateurs Internet:
 
-1. Placer Qwant sur la home page intranet
+1. Placer Qwant sur la page de démarrage, qui peut être la home page intranet
   * en utilisant l'API 
   * en ajoutant une iframe 
   * voir le lien [suivant](https://www.qwant.com/as-default/) ou [celui-ci](https://www.qwant.com/extension/)
-2. Mettre qwant comme moteur dans la liste
-3. Ajouter en favori sur le navigateur, vu qu’on ne peut pas l’ajouter sur la homepage du navigateur à la place de l’intranet)
+2. Mettre qwant comme moteur dans la liste des moteurs accessibles, et le mettre par défaut dans cette liste
+3. Ajouter en favori sur le navigateur
 
 Ces 3 solutions dépendent des contraintes et de la stratégie.
 
 ## Ajout du moteur dans le navigateur
 
-Ces solutions dépendent fortement du système d'explotation et du navigateur. Voici des pistes de mise en oeuvre pour quelques couples :
+Ces solutions dépendent fortement du système d’exploitation et du navigateur. Voici des pistes de mise en œuvre pour quelques couples :
 
 ### Solutions pour Windows 
 
@@ -42,24 +42,21 @@ Pour plus d'informations, la [documentation microsoft](https://technet.microsoft
 
 #### Sous Windows, pour tout navigateur
 
-Créer un package MSI qui sera déployé pour les différents navigateurs avec Qwant par défaut.   
+- Créer un package MSI qui sera déployé pour les différents navigateurs avec Qwant par défaut.   
 
-§  Dépot d'un fichier xml
+- Dépot d'un fichier xml dans l'arborescence de fichiers
 
-### Solutions pour Mac
-
-#### Sous Mac, pour Safari ou autre
-
-### Solutions pour Linux
-
-#### Sous Linux, pour Firefox ou autre
-
-Sous Linux, il faut utiliser un déploiement via un script bash en local avec des conditions en fonction du navigateur.
 
 Exemple pour Firefox (qui fonctionnerait aussi avec Windows). A priori ça doit être valable pour l’ensemble des OS, dans les versions récentes de Firefox (> 24 à vérifier) :
-Il faut poser un fichier xml (code ci dessous) dans `~/.mozilla/firefox/<profile>/searchplugins/` ou `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\searchplugins`
-Et le configurer dans `~/.mozilla/firefox/<profile>/search-metadata.json` ou `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\ search-metadata.json`
+`~/.mozilla/firefox/<profile>/searchplugins/` 
+ou
+ `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\searchplugins`
+Et le configurer dans 
+`~/.mozilla/firefox/<profile>/search-metadata.json`
+ ou
+  `C:\Users\chucknorris\AppData\Roaming\Mozilla\Firefox\Profiles\rz9azz.default\ search-metadata.json`
 
+Exemple de fichier `searchplugins`:
 ```
 <SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
 <os:ShortName>Qwant.com</os:ShortName>
@@ -77,8 +74,20 @@ Et le configurer dans `~/.mozilla/firefox/<profile>/search-metadata.json` ou `C:
 </SearchPlugins>
 ```
 
-Par exemple :
+Exemple pour `search-metadata.json` :
 
-```
+```xml
 {"[app]/google.xml":{"order":7,"alias":"g"},"[app]/yahoo.xml":{"order":8},"[app]/bing.xml":{"order":9},"[app]/amazondotcom.xml":{"order":10},"[app]/eBay.xml":{"order":11},"[app]/twitter.xml":{"order":6,"alias":"tw"},"[app]/wikipedia.xml":{"order":5,"alias":null,"hidden":false},"[profile]/duckduckgo.xml":{"order":12,"alias":"ddg"},"[profile]/startpage-ssl.xml":{"order":2,"alias":"st"},"[profile]/qwantcom.xml":{"order":1,"alias":"qw"},"[profile]/wikipdia-fr.xml":{"order":4,"alias":"wfr"},"[profile]/wikipedia-en-ssl.xml":{"order":3,"alias":"wen"},"[global]":{"current":"Qwant.com","hash":"m8kkXBAQxppw2+82n/B9dgEro8FKEfvhtQs2PwzCcfI="}}
 ```
+
+### Solutions pour Mac
+
+#### Sous Mac, pour Safari ou autre
+
+### Solutions pour Linux
+
+#### Sous Linux, pour Firefox ou autre
+
+Sous Linux, il faut utiliser un déploiement via un script bash en local avec des conditions en fonction du navigateur.
+
+
