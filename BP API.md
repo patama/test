@@ -170,7 +170,7 @@ Response :
 }
 ```
 
-Pour les tris par ordre ascendant ou descendant, on utilisera la query string ``sort```: par exemple ([5]) pour retourner la liste des tickets, dans l’ordre descendant des priorités : en commençant par priorité 3 et terminant par priorité 1, puis à l’intérieur d’un niveau de priorité, dans l’ordre ascendant d’ancienneté : le plus ancien d’abord. 
+Pour les tris par ordre ascendant ou descendant, on utilisera la query string ```sort```: par exemple ([5]) pour retourner la liste des tickets, dans l’ordre descendant des priorités : en commençant par priorité 3 et terminant par priorité 1, puis à l’intérieur d’un niveau de priorité, dans l’ordre ascendant d’ancienneté : le plus ancien d’abord. 
 ```
 GET /tickets?sort=-priority,created_at
 ```
@@ -247,7 +247,8 @@ En cas d’erreur, fournir en plus du http Status Code, un message à destinatio
 
 Exemple ([2]) :
 
-```{
+```
+{
   "status" : 400,
   "developerMessage" : "Verbose, plain language description of the problem. Provide developers suggestions about how to solve their problems here",
   "userMessage" : "This is a message that can be passed along to end-users, if needed.",
