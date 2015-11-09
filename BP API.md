@@ -8,7 +8,7 @@ Ce document cherche à recenser les principes directeurs associés à la concept
 Il se veut être un guide sur le chemin de l’ouverture des SI à travers les interfaces de type API en excluant les autres types d’interactions entre systèmes, par exemple les échanges asynchrone de fichiers.
 Ce document s’inspire très largement de plusieurs sources publiques accessibles via l’internet et citées ci-dessous.
 Ce document est le « point de vue initial » du Service Architecture et Urbanisation de la DISIC au moment du lancement du hackathon « Etat Plateforme France Connect » qui verra la naissance de services à destination des utilisateurs utilisant les APIs des SI des administrations centrales et territoriales.
-Il a été rédigé dans l’objectif de provoquer des réactions : compléments, questions, autres points de vue. 
+Il a été rédigé dans l’objectif de provoquer des réactions : compléments, questions, autres points de vue.
 Sur la base de ce document et des réactions qu’il aura suscitées sera élaboré le document final « guide des bonnes pratiques autour des API » qui s’inscrira dans le Cadre d’Architecture de l’Etat Plateforme.
 
 Ce document s’appuie sur les sources suivantes :
@@ -31,9 +31,9 @@ Ce document s’appuie sur les sources suivantes :
 [^f5]: http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 
 [^f6]: https://references.modernisation.gouv.fr/interoperabilite
- 
 
-Les principes communs à ces différentes sources sont repris et synthétisés.  Les idées qui n’apparaissent que dans une des sources ne sont pas systématiquement reprises dans ce guide.
+
+Les principes communs à ces différentes sources sont repris et synthétisés. Les idées qui n’apparaissent que dans une des sources ne sont pas systématiquement reprises dans ce guide.
 
 Pour chaque principe, on s’attachera à le décrire puis à présenter des exemples à suivre et à ne pas suivre afin de rendre le concept manipulé le plus opérationnel possible.
 
@@ -62,7 +62,7 @@ L’ensemble des principes présentés ici sont regroupés en 5+1 grandes famill
 
 **Planifier et concevoir son API pour les développeurs** :
 Ecouter les besoins des développeurs. Un des moyens de faire est d’être soi-même le premier consommateur de son API, par exemple en construisant un site Web qui utilise les ressources exposées.(Réf. : [1], [3], [4], [5])
-Se poser les questions suivantes pour chaque ressource en adoptant le point de vue du consommateur et celui du producteur : 
+Se poser les questions suivantes pour chaque ressource en adoptant le point de vue du consommateur et celui du producteur :
 
 * Quoi exposer
 * A qui est destinée la ressource,
@@ -72,24 +72,24 @@ Se poser les questions suivantes pour chaque ressource en adoptant le point de v
 * Quelle action sur cette ressource est nécessaire, optionnelle, porteuse de valeur ou dangereuse
 * …
 
-Bon et mauvais exemples de conception d’API ([4]) : 
+Bon et mauvais exemples de conception d’API ([4]) :
 
 [![](http://blog.octo.com/wp-content/uploads/2014/10/blender_01.png)](http://blog.octo.com/wp-content/uploads/2014/10/blender_01.png)
 Rechercher la simplicité et s’affranchir des données sous-jacentes
 
 
 ### Organiser l’exposition des ressources
-Le style d’architecture REST et la philosophie RESTful imposent le découpage en **ressources** et la manipulation de ces ressources à travers les **verbes d’action** du protocole http.  La principale difficulté dans la conception de l’API réside dans les choix de découpage de l’exposition des ressources.  Les notions de [clean url](https://en.wikipedia.org/w/index.php?title=clean_url&redirect=no) ou [semantic url](https://en.wikipedia.org/w/index.php?title=semantic_url&redirect=no) permettent d’améliorer l’utilisabilité de l’API. 
-Ainsi, pour accéder aux ressources, il convient d’utiliser **des noms plutôt que des verbes** et **des noms au pluriel plutôt qu’au singulier** (Réf. : [1], [2], [3], [4],[5]). 
+Le style d’architecture REST et la philosophie RESTful imposent le découpage en **ressources** et la manipulation de ces ressources à travers les **verbes d’action** du protocole http. La principale difficulté dans la conception de l’API réside dans les choix de découpage de l’exposition des ressources. Les notions de [clean url](https://en.wikipedia.org/w/index.php?title=clean_url&redirect=no) ou [semantic url](https://en.wikipedia.org/w/index.php?title=semantic_url&redirect=no) permettent d’améliorer l’utilisabilité de l’API.
+Ainsi, pour accéder aux ressources, il convient d’utiliser **des noms plutôt que des verbes** et **des noms au pluriel plutôt qu’au singulier** (Réf. : [1], [2], [3], [4],[5]).
 L’utilisation de noms oriente vers un usage de type CRUD, tandis que l’utilisation de verbes oriente vers un usage de type RPC. 
 L’utilisation du pluriel permet d’homogénéiser l’interface : l’URL n’est jamais modifiée que l’appel concerne une instance ou une collection.
 
 Exemples :
-Collection de ressources : 
+Collection de ressources :
 ```
 /v1/users
 ```
-Instance d’une ressource : 
+Instance d’une ressource :
 ```
 /v1/users/007
 ```
@@ -104,8 +104,9 @@ Mauvais exemple de verbe ([2]) :
 http://www.example.gov/magazine/1234/create
 ```
 
-**Choisir une casse** (Réf. : [4], [5]) et si tenir parmi les choix suivants. 
-On pourra choisir entre les casses suivantes : 
+**Choisir une casse** (Réf. : [4], [5]) et si tenir
+
+On pourra choisir entre les casses suivantes :
 UpperCamelCase, lowerCamelCase, snake_case et spinal-case.
 On peut faire un choix de casse différent pour décrire les ressources dans les URLs et pour peupler le corps des requêtes/réponses (http body).
 
@@ -113,7 +114,7 @@ Trouver le bon **niveau de granularité** dans les ressources exposées (Réf. :
 
 * Ne pas forcément suivre le rapport théorique 1 ressource = 1 URL
 * Regrouper les données qui sont systématiquement appelées ensemble
-* Se limiter à deux niveaux d’imbrication : 
+* Se limiter à deux niveaux d’imbrication :
 
 ```
 /v1/users/addresses/countries
@@ -127,12 +128,18 @@ On s’assurera que les requêtes GET sont « [safe](http://w3.org/2001/tag/doc/
 Chaque action a un effet particulier sur la ressource qu’elle manipule :
 
 Exemples ([5]) :
+
 `GET /tickets` retourne une liste de tickets
+
 `GET /tickets/12` retourne le ticket #12 (s’il existe)
+
 `POST /tickets` crée un nouveau ticket (et retourne son identifiant)
-`PUT /tickets/12` met à jour le ticket #12 
+
+`PUT /tickets/12` met à jour le ticket #12
+
 `PATCH /tickets/12` met à jour une propriété du ticket #12
-`DELETE /tickets/12` supprime le ticket #12 
+
+`DELETE /tickets/12` supprime le ticket #12
 
 Exemples ([2]) :
 
@@ -146,13 +153,16 @@ Exemples ([2]) :
 
 
 Utiliser les **query string** comme des paramètres :
-Pour gérer la notion de réponse partielle : par exemple pour modifier le niveau de détail de la réponse rendue : ```?detail=full``` ou ```?detail=none```  (Réf. : [3], [4])
-Ou encore pour proposer de la pagination, du tri, du filtrage et de la limitation du nombre d’enregistrements retournés (Réf. : [2], [4], [5])
+
+Pour gérer la notion de réponse partielle :  
+Par exemple pour modifier le niveau de détail de la réponse rendue : ```?detail=full``` ou ```?detail=none```  (Réf. : [3], [4])
+
+Ou encore pour proposer de la pagination, du tri, du filtrage et de la limitation du nombre d’enregistrements retournés (Réf. : [2], [4], [5]) :  
 Par exemple, pour proposer un système de pagination simple avec 2 paramètres dans la query string : limit et offset. Si les paramètres ne sont pas indiqués par le client, limiter par défaut le nombre d’objets dans la collection. Dans la réponse, indiquez en plus du résultat, le nombre total d’enregistrements et rappelez les paramètres d’entrée :
 
 
 Exemple ([2]) :
-Query : 
+Query :
 ```
 GET http://example.gov/magazines?limit=25&offset=50
 ```
@@ -170,7 +180,7 @@ Response :
 }
 ```
 
-Pour les tris par ordre ascendant ou descendant, on utilisera la query string ```sort```: par exemple ([5]) pour retourner la liste des tickets, dans l’ordre descendant des priorités : en commençant par priorité 3 et terminant par priorité 1, puis à l’intérieur d’un niveau de priorité, dans l’ordre ascendant d’ancienneté : le plus ancien d’abord. 
+Pour les tris par ordre ascendant ou descendant, on utilisera la query string ```sort```: par exemple ([5]) pour retourner la liste des tickets, dans l’ordre descendant des priorités : en commençant par priorité 3 et terminant par priorité 1, puis à l’intérieur d’un niveau de priorité, dans l’ordre ascendant d’ancienneté : le plus ancien d’abord.
 ```
 GET /tickets?sort=-priority,created_at
 ```
@@ -184,19 +194,17 @@ https://api.fakecompany.com/v1/restaurants?type=chinese&sort=rating,name&desc=ra
 < Accept-Range: restaurants 50
 ```
 
-**Versions** :
-Les APIs doivent naturellement être versionnées, ne jamais exposer une API sans version :
-
+**Versions** :  
+Les APIs doivent naturellement être versionnées, ne jamais exposer une API sans version :  
 - Utiliser la convention de nommage [semantic version](http://semver.org/)
 - La version de l’API doit apparaitre dans l’URL, en n’indiquant que la version majeure.
 
-Les bonnes pratiques de gestion de version dépassent le cadre de ce document, on peut cependant indiquer :
-
-- Maintenir en production la version précédente, 
+Les bonnes pratiques de gestion de version dépassent le cadre de ce document, on peut cependant indiquer :  
+- Maintenir en production la version précédente,
 - Essayer de ne pas maintenir plus de 2 versions simultanément,
 - Avertir les consommateurs de la publication d’une nouvelle version,
 - Communiquer sur les évolutions et les conséquences à prendre en compte dans leurs développements,
-- Indiquer les dates de fin de support des versions précédentes. 
+- Indiquer les dates de fin de support des versions précédentes.
 Réf. : [2], [4], [5]
 
 L’**année** ne doit pas apparaitre dans le chemin de l’URL car c’est un filtre de recherche. Il doit aller dans la partie Query String, dans les champs de type paramètres de la recherche au même titre que l’ordre de tri.
@@ -205,7 +213,7 @@ Exemple ([2]) :
 http://www.example.gov/magazines/2011/desc
 ```
 ### Offrir plusieurs formats de réponses
-Les **ressources** peuvent être présentées sous différentes formes ou **représentations** et lorsque c’est pertinent, il faut présenter les ressources sous plusieurs formes. Au moins l’une des formes doit être lisible par les humains, tandis que les autres seront adaptés en fonction des traitements envisagés et en fonction du contenu de la ressource. Ainsi, pour des ressources très structurées, destinées à être importées en base de données, on proposera un format type csv.
+Les **ressources** peuvent être présentées sous différentes formes ou **représentations** et lorsque c’est pertinent, il faut présenter les ressources sous plusieurs formes. Au moins l’une des formes doit être lisible par les humains, tandis que les autres seront adaptés en fonction des traitements envisagés et en fonction du contenu de la ressource. Ainsi, pour des ressources très structurées, destinées à être importées en base de données, on proposera un format type csv.  
 Les formats les plus répandus sont :
 
 - XML
@@ -226,7 +234,7 @@ La [tendance actuelle](http://www.google.com/trends/explore?q=xml+api#q=xml%20ap
 
 <img><script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=xml+api+,+json+api&cmpt=q&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script></img>
 
-**Négociation du format des représentations** (Réf. : [1], [2], [3], [4], [5]) :
+**Négociation du format des représentations** (Réf. : [1], [2], [3], [4], [5]) :  
 La balise « content type header » permet de caractériser le format de la ressource présentée.
 La balise « accept » dans le header http permet d’engager avec le consommateur une phase de de négociation avant de lui présenter la ressource au format demandé.
 
@@ -263,6 +271,7 @@ Exemple ([2]) :
 ```
 
 **Ne jamais mettre de valeurs dans les clés** ([2]) :
+
 Bon exemple :
 
 ```
@@ -282,21 +291,21 @@ Mauvais exemple :
 ```
 
 ### Spécifier et Documenter les APIs
-Utiliser une approche " *Spec Driven Development* " pour créer rapidement l’API à partir de sa **spécification**, pour documenter l’API et pour faciliter sa maintenance évolutive.
-Plusieurs outils émergent actuellement sur ce sujet, on peut citer par ordre d’apparition : [Swagger](http://swagger.io/), [API Bluprint](https://apiary.io/blueprint) et [RAML](http://raml.org). Chacun est soutenu par un consortium d’acteurs différents et présente des avantages et des inconvénients : voir [ici](http://www.mikestowe.com/2014/12/api-spec-comparison-tool.php) pour une comparaison des 3 outils.
-La spécification à partir de ces outils permet également de proposer très facilement aux utilisateurs des « mocks » de service et affiner avec eux les interfaces et les fonctions.
-Réf. : [1], [2], [4], [5]
+Utiliser une approche " *Spec Driven Development* " pour créer rapidement l’API à partir de sa **spécification**, pour documenter l’API et pour faciliter sa maintenance évolutive.  
+Plusieurs outils émergent actuellement sur ce sujet, on peut citer par ordre d’apparition : [Swagger](http://swagger.io/), [API Bluprint](https://apiary.io/blueprint) et [RAML](http://raml.org). Chacun est soutenu par un consortium d’acteurs différents et présente des avantages et des inconvénients : voir [ici](http://www.mikestowe.com/2014/12/api-spec-comparison-tool.php) pour une comparaison des 3 outils.  
+La spécification à partir de ces outils permet également de proposer très facilement aux utilisateurs des « mocks » de service et affiner avec eux les interfaces et les fonctions.  
+(Réf. : [1], [2], [4], [5])
 
 Proposer une **documentation** de l’API avec des exemples :
 Possibilité d’expérimenter directement depuis la documentation.
-Illustration de l’utilisation de l’API en incluant des appels cURL.
-Réf. : [1], [3], [4], [5]
+Illustration de l’utilisation de l’API en incluant des appels cURL.  
+(Réf. : [1], [3], [4], [5])
 
 Penser à proposer dans les réponses des liens **hypermedia** pour guider les développeurs et leur faire découvrir les ressources et actions possibles de l’API. C’est le concept HATEOAS : Hypermedia
- As The Engine Of Application State.
-Réf. : [1], [3], [4], [5]
+ As The Engine Of Application State.  
+(Réf. : [1], [3], [4], [5])
 
-Dans la documentation de l’API, spécifier également les **niveaux d’engagements** de l’API en termes de sécurité, disponibilité, limite de consommation, temps de réponse, source des données fournies, …
+Dans la documentation de l’API, spécifier également les **niveaux d’engagements** de l’API en termes de sécurité, disponibilité, limite de consommation, temps de réponse, source des données fournies, …  
 Ces engagements peuvent également apparaitre dans les headers des réponses données au client (http code 429 – Too many Requests) ou en utilisant, par exemple, les notations de twitter (Réf. : [5]) :
 
 - X-Rate-Limit-Limit
@@ -308,7 +317,7 @@ Ces engagements peuvent également apparaitre dans les headers des réponses don
 
 #### SDK - bibliothèques
 
-La fourniture de SDK ou de bibliothèques pour différents langages clients de l’API est une bonne pratique. Cependant s’ils simplifient l’usage de l’api, il faut les maintenir dans le temps et en assurer le support aux utilisateurs (Réf. : [1], [3], [4], [5]). 
+La fourniture de SDK ou de bibliothèques pour différents langages clients de l’API est une bonne pratique. Cependant s’ils simplifient l’usage de l’api, il faut les maintenir dans le temps et en assurer le support aux utilisateurs (Réf. : [1], [3], [4], [5]).
 
 #### API Management
 
@@ -320,7 +329,7 @@ Ne pas hésiter à réutiliser les APIs qui existent plutôt que de re-développ
 Séparer l’appel à l’API tierce du reste du code, afin de permettre notamment le changement de fournisseur.
 Prévoir l’indisponibilité des APIs tierces : prévenir l’utilisateur, lui offrir une alternative dégradée.
 Attention lors des tests de l’API à bien prendre en compte les contraintes associées des APIs tierces en termes d’utilisabilité, de performance ou financières
-Exemples : 
+Exemples :
 
 - API d’envoi de mail : on ne veut pas envoyer de mail lors des tests,
 - API de webanalytics, on ne veut pas dégrader les performances ou attendre un traitement
@@ -341,21 +350,24 @@ Leonard Richardson Maturity Model[^f7], cité dans [7]
 
 [^f7]: http://martinfowler.com/articles/richardsonMaturityModel.html
 
-## Ouverture en guise de conclusion 
-Le présent document a voulu synthétiser les bonnes pratiques de conception des APIs dites RESTful. Il est cependant important de noter que le monde des APIs est bien plus vaste, on peut citer a minima :
-Toutes les Apis Asynchrone : de type websockets, MQTT, AMQP, Stomp, webhook ou pubsub
-Les APIs qui font des orchestrations coté serveur pour améliorer l’expérience utilisateur
-Les interfaces basées sur des protocoles binaires : Apache Thrift par exemple
-Le développement de SDK qui peuvent permettre au client de revenir vers du RPC : fournir des librairies pour que le client consomme l’api dans son langage souvent orienté procédures
+## Ouverture en guise de conclusion
+Le présent document a voulu synthétiser les bonnes pratiques de conception des APIs dites RESTful. Il est cependant important de noter que le monde des APIs est bien plus vaste, on peut citer a minima :  
+
+- Toutes les Apis Asynchrone : de type websockets, MQTT, AMQP, Stomp, webhook ou pubsub
+- Les APIs qui font des orchestrations coté serveur pour améliorer l’expérience utilisateur
+- Les interfaces basées sur des protocoles binaires : Apache Thrift par exemple
+- Le développement de SDK qui peut permettre au client de revenir vers du RPC : fournir des librairies pour que le client consomme l’api dans son langage souvent orienté procédures  
+
 Enfin, il faut citer l’autre grande technologie permettant d’exposer des web services : le SOAP (Simple Object Access Protocol), protocole pouvant s’appuyer sur http ou une autre couche de transport.
 
+------
 Secrétariat général pour la modernisation de l’action publique
 Direction interministérielle du numérique et des systèmes d’information et de communication
 
 Avril 2015 - Septembre 2015
 
 
-Sources et Travaux Cités :
+Sources et Travaux Cités
 
 [1]: http://blogs.mulesoft.org/api-best-practices-wrap-up/
 
@@ -370,6 +382,3 @@ Sources et Travaux Cités :
 [6]: https://references.modernisation.gouv.fr/interoperabilite
 
 [7]: http://martinfowler.com/articles/richardsonMaturityModel.html
-
-
-
